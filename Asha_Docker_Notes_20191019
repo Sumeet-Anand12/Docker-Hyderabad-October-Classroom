@@ -75,3 +75,24 @@ See 'docker --help'
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
 [root@ip-172-31-20-65 ec2-user]#
 
+
+===========================================================================
+
+ps -eaf | grep docker
+docker run -d jenkins  -- Takes the editor
+ps -eaf | grep docker
+docker run -d jenkins
+ps -eaf | grep docker
+docker ps -a
+docker exec 0bc1ac094cf9 df -kh
+docker exec c86fe1905a84 df -kh
+docker exec c86fe1905a84 touch /var/jenkins_home/asha_test.txt
+docker exec c86fe1905a84 df -kh
+docker exec c86fe1905a84 ls  /var/jenkins_home/
+docker ps -a
+docker inspect 0bc1ac094cf9
+docker inspect c86fe1905a84
+docker ps -a
+docker exec 0bc1ac094cf9 ps -eaf
+docker exec c86fe1905a84 ps -eaf
+
