@@ -89,3 +89,22 @@ and install jenkins
    93  docker exec fe39d949f271 ps -eaf
    94  history
    
+has to create jenkins prot
+
+104  clear
+  105  ls
+  106  clear
+  107  clea
+  108  docker ps
+  109  docker inspect fe39d949f271
+  110  ping 172.17.0.2
+  111  docker ps
+  112  curl http://172.17.0.2:8080
+  113  clear
+  114  docker ps
+  115  docker run -d -p 8091:8080 jenkins
+  116  history
+  
+  to view the out put we need to give your public IP:- 13.233.134.69
+  ex:-13.233.134.69:8091 then we can see the jenkins page
+  
