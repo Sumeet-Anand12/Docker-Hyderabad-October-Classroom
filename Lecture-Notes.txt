@@ -80,8 +80,6 @@ Docker Components?
 13.233.134.69 - Shiva
 
 User name -ec2-user 
-PPK - https://www.devopsschool.com/notes/docker/2019/
-rajesh-mumbai.ppk
 
 Docker needs root
 username should be a part of group called "docker"
@@ -114,6 +112,7 @@ Workflow of Docker
 Pull -> Create -> Start -> Stop -> Restart -> Pause -> Unpause  -> Stop - >Delete
 -----------------------
         RUN
+
  10  docker info
    11  history
    12  clear
@@ -148,3 +147,71 @@ Pull -> Create -> Start -> Stop -> Restart -> Pause -> Unpause  -> Stop - >Delet
    41  docker rm eacca655ebfb
    42  docker ps -a
    43  history
+
+Working with container?
+
+    Container is USER SPACE (USER NS)
+                With their own
+                - MOUNT (MNT NS) -----------------> FROM IMAGE
+                - Network (NET NS)
+                - Process Map (PMAP ns)
+    with a help of DOCKER.
+
+How to go inside a container?
+- exec - Docker exec will execute a executables inside a container if EXist
+            with -it and shell - you can go inside a container
+- attach
+        willl attached to PID 1.
+
+LETS UNDERSTAND PID 1
+44  clear
+   45  clear
+   46  docker run jenkins
+   47  clear
+   48  docker ps -a
+   49  docker run -d jenkins
+   50  docker ps
+   51  docker ps -a
+   52  clear
+   53  clear
+   54  docker ps -a
+   55  docker stop 608bde9780ea
+   56  docker rm 608bde9780ea dc400428c337
+   57  clear
+   58  docker ps -a
+   59  w
+   60  cleear
+   61  clear
+   62  ps -eaf | grep docker
+   63  docker run -d jenkins
+   64  ps -eaf | grep docker
+   65  docker run -d jenkins
+   66  ps -eaf | grep docker
+   67  clear
+   68  ls
+   69  clear
+   70  docker ps
+   71  docker exec 49efc8dc2f25 df -kh
+   72  docker exec fe39d949f271 df -kh
+   73  docker exec fe39d949f271 ls /var/jenkins_home
+   74  docker exec 49efc8dc2f25  ls /var/jenkins_home
+   75  clear
+   76  history
+   77  docker exec fe39d949f271 touch /var/jenkins_home/rajesh.txt
+   78  docker exec 49efc8dc2f25  ls /var/jenkins_home
+   79  docker exec fe39d949f271 touch /var/jenkins_home/rajesh.txt
+   80  docker exec fe39d949f271 ls /var/jenkins_home
+   81  clear
+   82  ifconfig
+   83  clear
+   84  docker ps
+   85  docker inspect 49efc8dc2f25
+   86  docker ps
+   87  docker inspect fe39d949f271
+   88  clear
+   89  ps -eaf
+   90  clear
+   91  docker ps
+   92  docker exec 49efc8dc2f25 ps -eaf
+   93  docker exec fe39d949f271 ps -eaf
+   94  history
