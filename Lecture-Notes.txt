@@ -215,3 +215,46 @@ LETS UNDERSTAND PID 1
    92  docker exec 49efc8dc2f25 ps -eaf
    93  docker exec fe39d949f271 ps -eaf
    94  history
+
+
+
+
+   How to go inside a container?
+- exec - Docker exec will execute a executables inside a container if EXist
+            with -it and shell - you can go inside a container
+- attach
+        willl attached to PID 1.
+
+How to come out of containers?
+Crtl + p + q
+
+93  docker exec fe39d949f271 ps -eaf
+   94  history
+   95  clear
+   96  docker ps
+   97  docker exec -it 49efc8dc2f25 /bin/bash
+   98  docker exec 49efc8dc2f25 ps -eaf
+   99  docker attach 49efc8dc2f25
+  100  docker ps
+  101  docker ps -a
+  102  clear
+  103  history
+
+  
+
+How to access container?
+        BROWSERS
+
+104  clear
+  105  ls
+  106  clear
+  107  clea
+  108  docker ps
+  109  docker inspect fe39d949f271
+  110  ping 172.17.0.2
+  111  docker ps
+  112  curl http://172.17.0.2:8080
+  113  clear
+  114  docker ps
+  115  docker run -d -p 8085:8080 jenkins
+  116  history
