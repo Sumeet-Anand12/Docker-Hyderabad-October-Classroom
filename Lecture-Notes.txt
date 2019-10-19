@@ -1,3 +1,12 @@
+https://devopsschool.com/tutorial/docker/
+https://www.devopsschool.com/slides/docker/
+https://www.devopsschool.com/pdf/docker/
+https://www.devopsschool.com/lms/
+https://www.devopsschool.com/lms/
+https://github.com/devops-school
+https://github.com/devopsschool-lab-exercise
+https://github.com/devopsschool-sample-projects
+
 DOCKER
 ===========================
 What is Docker?
@@ -258,3 +267,140 @@ How to access container?
   114  docker ps
   115  docker run -d -p 8085:8080 jenkins
   116  history
+  =========================================
+
+  117  clear
+  118  docker ps -a
+  119  docker stop d72f88f5e696  49efc8dc2f25 fe39d949f271
+  120  docker rm d72f88f5e696  49efc8dc2f25 fe39d949f271
+  121  clear
+  122  ls
+  123  docker ps -a
+  124  docker images
+  125  docker inspect jenkins
+  126  clear
+  127  cd /var/lib/docker
+  128  ls
+  129  cd overlay2
+  130  clear
+  131  ls
+  132  du -h -max-level=1
+  133  du -h --max-level=1
+  134  man du
+  135  du -h --max-depth=1
+  136  cd ./eb3dd6eef8f51628c6d4e8467f51b029a635a133fcefdbfe2c4ba4a7532981d6
+  137  ls
+  138  cd diff/
+  139  clear
+  140  ls
+  141  cd
+  142  docker inspect jenkins
+  143  docker history jenkins
+  144  clear
+  145  history
+
+
+
+  How to create images
+  ========================
+  Manual way using container
+  docker run -itd ubuntu
+  docker attach cont-id
+        apt-get update
+        apt-get install git
+        ctrl + p+ q
+    docker commit -m"git-up" 11f2c8466954  -a "Rajesh" ub-git
+
+  Dockerfile 
+
+  FROM ubuntu
+  MAINTAINER Rajesh Kumar DevOps@RajeshKumar.xyz
+  RUN apt-get update 
+  RUN apt-get install git -y
+
+docker build -t raj-ub-git .
+
+  145  history
+  146  clear
+  147  docker images
+  148  docker run -itd ubuntu
+  149  clear
+  150  docker images
+  151  docker ps
+  152  docker exec 11f2c8466954 git
+  153  docker attach /bin/bash
+  154  docker attach 11f2c8466954
+  155  docker ps
+  156  docker exec 11f2c8466954 git
+  157  git
+  158  docker ps
+  159  clear
+  160  docker images
+  161  docker commit -m"git-up" 11f2c8466954  -a "Rajesh" ub-git
+  162  docker commit -m"git-up" -a "Rajesh"  11f2c8466954 ub-git
+  163  docker images
+  164  docker run -itd ub-git
+  165  docker ps
+  166  docker exec 6a949548960b git
+  167  clear
+  168  docker images
+  169  docker history ubuntu
+  170  docker history ub-git
+  171   17 hours ago        /bin/sh -c #(nop)  CMD ["/bin/bash"]            0B
+  172  <missing>           17 hours ago        /bin/sh -c mkdir -p /run/systemd && echo 'do…   7B
+<missing>           17 hours ago        /bin/sh -c set -xe   && echo '#!/bin/sh' > /…   745B
+<missing>           17 hours ago        /bin/sh -c [ -z "$(apt-get indextargets)" ]     987kB
+<missing>           17 hours ago        /
+  173  clear
+  174  vi dockerfile
+  175  docker build -t raj-ub-git .
+  176  docker images
+  177  history
+
+  ==================================
+  How to share a images
+  ----------------------
+
+  Tar ball
+
+
+   181  docker images
+  182  docker save -o raj-ub-git.tar raj-ub-git
+  183  ls
+  184  docker images
+  185  docker rmi raj-ub-git
+  186  docker images
+  187  docker load -i raj-ub-git.tar
+  188  docker images
+  189  history
+
+  hub.docker.com
+1  ls
+  192  docker images
+  193  docker login
+  194  docker push raj-ub-git
+  195  docker tag raj-ub-git scmgalaxy/saturday2
+  196  docker push raj-ub-git
+  197  docker images
+  198  docker push scmgalaxy/saturday2
+  199  history
+
+  97  docker images
+  198  docker push scmgalaxy/saturday2
+  199  history
+  200  docker images
+  201  docker history raj-ub-git
+  202  docker history jenkins
+  203  clear
+  204  docker images
+  205  docker run -itd scmgalaxy/saturday2
+  206  docker ps
+  207  docker attach 9eb5b5af836e
+  208  docker ps
+  209  docker commit -m"fdsfds" -a"fff" 9eb5b5af836e
+  210  docker commit -m"fdsfds" -a"fff" 9eb5b5af836e ff
+  211  clear
+  212  docker images
+  213  docker history ff
+  214  docker tag afd553181fef ggg
+  215  docker images
