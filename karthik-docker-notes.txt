@@ -304,6 +304,93 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 
 ==================================================================================================================================
 
+Now let's see how to install an application in deattached mode.
+
+[root@ip-172-31-25-169 ~]# docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                       PORTS               NAMES
+196fa1562f0b        jenkins             "/bin/tini -- /usr/l…"   22 seconds ago      Exited (130) 3 seconds ago                       peaceful_lamarr
+[root@ip-172-31-25-169 ~]# docker run -d jenkins
+bc7f412ceb8e62fa0e1ad5848b094dbf49b80803d23cf0c4659f102887f3e0c3
+[root@ip-172-31-25-169 ~]# docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                        PORTS                 NAMES
+bc7f412ceb8e        jenkins             "/bin/tini -- /usr/l…"   2 seconds ago       Up 2 seconds                  8080/tcp, 50000/tcp   epic_beaver
+196fa1562f0b        jenkins             "/bin/tini -- /usr/l…"   35 seconds ago      Exited (130) 16 seconds ago                         peaceful_lamarr
+[root@ip-172-31-25-169 ~]# docker stop bc7f412ceb8e
+bc7f412ceb8e
+[root@ip-172-31-25-169 ~]# docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                        PORTS               NAMES
+bc7f412ceb8e        jenkins             "/bin/tini -- /usr/l…"   26 seconds ago      Exited (143) 2 seconds ago                        epic_beaver
+196fa1562f0b        jenkins             "/bin/tini -- /usr/l…"   59 seconds ago      Exited (130) 40 seconds ago                       peaceful_lamarr
+[root@ip-172-31-25-169 ~]# docker rm bc7f412ceb8e 196fa1562f0b
+bc7f412ceb8e
+196fa1562f0b
+[root@ip-172-31-25-169 ~]# docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+[root@ip-172-31-25-169 ~]# ps -eaf | grep docker
+root     19109     1  0 08:57 ?        00:00:16 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+root     21039 17961  0 10:10 pts/0    00:00:00 grep --color=auto docker
+
+================================================================================================================================
+
+[root@ip-172-31-25-169 ~]# docker run -d jenkins
+ec76f589dc5d8600a344a53862cfa575f34864034403d538ce39e42415ccfb82
+[root@ip-172-31-25-169 ~]# ps -eaf | grep docker
+root     19109     1  0 08:57 ?        00:00:16 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+root     21052 19107  0 10:12 ?        00:00:00 containerd-shim -namespace moby -workdir /var/lib/containerd/io.containerd.runtime.v1.linux/moby/ec76f589dc5d8600a344a53862cfa575f34864034403d538ce39e42415ccfb82 -address /run/containerd/containerd.sock -containerd-binary /usr/bin/containerd -runtime-root /var/run/docker/runtime-runc
+root     21126 17961  0 10:12 pts/0    00:00:00 grep --color=auto docker
+[root@ip-172-31-25-169 ~]# docker run -d jenkins
+3626c6baf1811995af6699c934d5af1df94bb12e2203d6893edf1450e4c34c21
+[root@ip-172-31-25-169 ~]# ps -eaf | grep docker
+root     19109     1  0 08:57 ?        00:00:17 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+root     21052 19107  0 10:12 ?        00:00:00 containerd-shim -namespace moby -workdir /var/lib/containerd/io.containerd.runtime.v1.linux/moby/ec76f589dc5d8600a344a53862cfa575f34864034403d538ce39e42415ccfb82 -address /run/containerd/containerd.sock -containerd-binary /usr/bin/containerd -runtime-root /var/run/docker/runtime-runc
+root     21163 19107  0 10:12 ?        00:00:00 containerd-shim -namespace moby -workdir /var/lib/containerd/io.containerd.runtime.v1.linux/moby/3626c6baf1811995af6699c934d5af1df94bb12e2203d6893edf1450e4c34c21 -address /run/containerd/containerd.sock -containerd-binary /usr/bin/containerd -runtime-root /var/run/docker/runtime-runc
+root     21237 17961  0 10:12 pts/0    00:00:00 grep --color=auto docker
+[root@ip-172-31-25-169 ~]# docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS              PORTS                 NAMES
+3626c6baf181        jenkins             "/bin/tini -- /usr/l…"   44 seconds ago       Up 43 seconds       8080/tcp, 50000/tcp   awesome_moore
+ec76f589dc5d        jenkins             "/bin/tini -- /usr/l…"   About a minute ago   Up About a minute   8080/tcp, 50000/tcp   agitated_morse
+
+===============================================================================================================================
+
+[root@ip-172-31-25-169 ~]# docker exec 3626c6baf181 df -kh
+Filesystem      Size  Used Avail Use% Mounted on
+overlay          30G  2.9G   28G  10% /
+tmpfs            64M     0   64M   0% /dev
+tmpfs           919M     0  919M   0% /sys/fs/cgroup
+shm              64M     0   64M   0% /dev/shm
+/dev/xvda2       30G  2.9G   28G  10% /var/jenkins_home
+tmpfs           919M     0  919M   0% /proc/acpi
+tmpfs           919M     0  919M   0% /proc/scsi
+tmpfs           919M     0  919M   0% /sys/firmware
+[root@ip-172-31-25-169 ~]# docker exec ec76f589dc5d df -kh
+Filesystem      Size  Used Avail Use% Mounted on
+overlay          30G  2.9G   28G  10% /
+tmpfs            64M     0   64M   0% /dev
+tmpfs           919M     0  919M   0% /sys/fs/cgroup
+shm              64M     0   64M   0% /dev/shm
+/dev/xvda2       30G  2.9G   28G  10% /var/jenkins_home
+tmpfs           919M     0  919M   0% /proc/acpi
+tmpfs           919M     0  919M   0% /proc/scsi
+tmpfs           919M     0  919M   0% /sys/firmware
+
+================================================================================================================================
+
+[root@ip-172-31-25-169 ~]# docker exec 3626c6baf181 touch /var/jenkins_home/karthik_unique_file1.txt
+[root@ip-172-31-25-169 ~]# docker exec 3626c6baf181 ls /var/jenkins_home/karthik_unique_file1.txt
+/var/jenkins_home/karthik_unique_file1.txt
+[root@ip-172-31-25-169 ~]# docker exec ec76f589dc5d ls /var/jenkins_home/karthik_unique_file1.txt
+ls: cannot access '/var/jenkins_home/karthik_unique_file1.txt': No such file or directory
+
+===============================================================================================================================
+
+How to access container?
+        BROWSERS
+
+[root@ip-172-31-25-169 ~]# docker run -d -p 8085:8080 jenkins
+845afe1baa5bbd2a7fb0e920fe6e1018ac6e01a42611ab038d55c249f02d03ce
+[root@ip-172-31-25-169 ~]# netstat -anl | grep '8085'
+tcp6       0      0 :::8085                 :::*                    LISTEN
+unix  2      [ ACC ]     STREAM     LISTENING     18085    private/proxymap
 
 
 
