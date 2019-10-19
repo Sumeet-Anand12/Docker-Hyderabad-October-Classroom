@@ -1,3 +1,65 @@
+Theory about Docker :
+
+DOCKER
+===========================
+What is Docker?
+    Container mgmt tool
+    Free
+    Open Source
+    Version
+        Community
+        Enterprise
+    By Docker
+    Written in Go
+--------------------
+    How you run APP?
+        20 YEARS In PAST- PHYSCIAL SERVER
+        NOW - VMs
+        NOW ONWARDS
+------------
+WHY VM?
+    Reducing a Cost
+    Avoid a Wasteage
+    Speed of running app.
+--------------------------
+10 APP -------> 10 PS
+----------------------------
+10 APP -------> 10 VMs
+    WHY?
+===================================
+What is container?
+    Container is USER SPACE (USER NS)
+                With their own
+                - MOUNT (MNT NS) -----------------> FROM IMAGE
+                - Network (NET NS)
+                - Process Map (PMAP ns)
+    with a help of DOCKER.
+
+Container is a light weight package containing app.
+========================================
+Architecure of Docker
+---------------------
+
+Humen -> Docker Client --API ---> Docker Daemon --> Kernal 
+        ------------Docker Engine---------------
+
+
+
+Docker Components?
+--- Docker Engine
+--- Docker Image
+            OS LIB + Dependent Soft + Apps
+--- Registry (https://hub.docker.com/)
+        - repository
+
+--- Container
+    From Image you create container 
+    One Image can create millions of container in one second.
+
+    How to install Docker?
+    https://www.devopsschool.com/tutorial/docker/install-config/docker-install-commuityedition-centos-rhel.html
+===============================================================================================================
+
 Docker provisioning notes in centos/RHEL using AWS EC2 instance
 ===============================================================
 
@@ -196,7 +258,51 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 
 ==========================
 
+Now do some docker administration commands :
 
+[root@ip-172-31-25-169 ~]# docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
+87014bb885ea        jenkins             "/bin/tini -- /usr/l…"   33 minutes ago      Created                                 elated_kirch
+[root@ip-172-31-25-169 ~]# docker start 87014bb885ea
+87014bb885ea
+[root@ip-172-31-25-169 ~]# docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                 NAMES
+87014bb885ea        jenkins             "/bin/tini -- /usr/l…"   33 minutes ago      Up 2 seconds        8080/tcp, 50000/tcp   elated_kirch
+[root@ip-172-31-25-169 ~]# docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                 NAMES
+87014bb885ea        jenkins             "/bin/tini -- /usr/l…"   33 minutes ago      Up 11 seconds       8080/tcp, 50000/tcp   elated_kirch
+[root@ip-172-31-25-169 ~]# docker stop 87014bb885ea
+87014bb885ea
+[root@ip-172-31-25-169 ~]# docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                       PORTS               NAMES
+87014bb885ea        jenkins             "/bin/tini -- /usr/l…"   34 minutes ago      Exited (143) 2 seconds ago                       elated_kirch
+[root@ip-172-31-25-169 ~]# docker restart 87014bb885ea
+87014bb885ea
+[root@ip-172-31-25-169 ~]# docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                 NAMES
+87014bb885ea        jenkins             "/bin/tini -- /usr/l…"   34 minutes ago      Up 7 seconds        8080/tcp, 50000/tcp   elated_kirch
+[root@ip-172-31-25-169 ~]# docker pause 87014bb885ea
+87014bb885ea
+[root@ip-172-31-25-169 ~]# docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                   PORTS                 NAMES
+87014bb885ea        jenkins             "/bin/tini -- /usr/l…"   34 minutes ago      Up 32 seconds (Paused)   8080/tcp, 50000/tcp   elated_kirch
+[root@ip-172-31-25-169 ~]# docker unpause 87014bb885ea
+87014bb885ea
+[root@ip-172-31-25-169 ~]# docker ps -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                 NAMES
+87014bb885ea        jenkins             "/bin/tini -- /usr/l…"   34 minutes ago      Up 38 seconds       8080/tcp, 50000/tcp   elated_kirch
+[root@ip-172-31-25-169 ~]# docker rm 87014bb885ea
+Error response from daemon: You cannot remove a running container 87014bb885ea7cec59d116403e089eced61bbe0f07f74de0ef66a379ac7179be. Stop the container before attempting removal or force remove
+[root@ip-172-31-25-169 ~]#
+
+[root@ip-172-31-25-169 ~]# docker stop 87014bb885ea
+87014bb885ea
+[root@ip-172-31-25-169 ~]# docker rm 87014bb885ea
+87014bb885ea
+[root@ip-172-31-25-169 ~]# docker ps -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+
+==================================================================================================================================
 
 
 
